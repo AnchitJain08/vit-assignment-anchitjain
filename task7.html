@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 7 - Navigation Bars</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            gap: 40px;
+        }
+
+        /* Vertical Navigation */
+        .vertical-nav {
+            width: 200px;
+            border: 1px solid #ccc;
+        }
+
+        .vertical-nav a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: blue;
+            border-bottom: 1px solid #ccc;
+            background-color: transparent;
+        }
+
+        .vertical-nav a:last-child {
+            border-bottom: none;
+        }
+
+        .vertical-nav a.active {
+            background-color: #ffa500;
+            color: white;
+        }
+
+        .vertical-nav a:hover:not(.active) {
+            background-color: #99d9d9;
+        }
+
+        /* Horizontal Navigation */
+        .horizontal-nav {
+            flex-grow: 1;
+        }
+
+        .horizontal-nav-container {
+            display: flex;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+        }
+
+        .horizontal-nav a {
+            padding: 15px 30px;
+            text-decoration: none;
+            color: blue;
+            border-right: 1px solid #ccc;
+            background-color: transparent;
+        }
+
+        .horizontal-nav a:last-child {
+            border-right: none;
+        }
+
+        .horizontal-nav a.active {
+            background-color: #808080;
+            color: white;
+        }
+
+        .horizontal-nav a:hover:not(.active) {
+            background-color: #99d9d9;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="vertical-nav">
+        <h2>Vertical Navigation Bar</h2>
+        <a href="#">Home</a>
+        <a href="#">Java</a>
+        <a href="#">CSS</a>
+        <a href="#">HTML</a>
+        <a href="#">Bootstrap</a>
+    </div>
+
+    <div class="horizontal-nav">
+        <h2>Horizontal Navigation Bar</h2>
+        <div class="horizontal-nav-container">
+            <a href="#">Home</a>
+            <a href="#">Java</a>
+            <a href="#">HTML</a>
+            <a href="#">CSS</a>
+        </div>
+    </div>
+</body>
+</html>

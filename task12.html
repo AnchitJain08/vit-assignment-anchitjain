@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 12 - Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+            background-color: white;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .gender-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .gender-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        input[type="radio"] {
+            margin: 0;
+        }
+
+        select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .register-button:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form>
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" placeholder="your name" required>
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" placeholder="your email" required>
+            </div>
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" required>
+            </div>
+            <div class="form-group">
+                <label>Phone Number:</label>
+                <input type="tel" required>
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <div class="gender-group">
+                    <div class="gender-option">
+                        <input type="radio" id="male" name="gender" value="male">
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="gender-option">
+                        <input type="radio" id="female" name="gender" value="female">
+                        <label for="female">Female</label>
+                    </div>
+                    <div class="gender-option">
+                        <input type="radio" id="other" name="gender" value="other">
+                        <label for="other">Other</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Language:</label>
+                <select required>
+                    <option value="" disabled selected>Select language</option>
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="hi">Hindi</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Zip Code:</label>
+                <input type="text" pattern="[0-9]*" required>
+            </div>
+            <div class="form-group">
+                <label>About:</label>
+                <textarea placeholder="Write about yourself..."></textarea>
+            </div>
+            <button type="submit" class="register-button">Register</button>
+        </form>
+    </div>
+</body>
+</html>

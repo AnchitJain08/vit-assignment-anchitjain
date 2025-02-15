@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 5 - Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: blue;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        .form-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .form-group {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .form-group label {
+            width: 150px;
+            font-weight: bold;
+            padding-right: 10px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        .gender-options {
+            display: flex;
+            gap: 20px;
+        }
+        .gender-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .languages {
+            display: flex;
+            gap: 20px;
+        }
+        .language-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .declaration {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ethnus-link {
+            text-align: right;
+            margin-top: 10px;
+        }
+        .ethnus-link a {
+            color: blue;
+            text-decoration: none;
+        }
+        .ethnus-link a:hover {
+            text-decoration: underline;
+        }
+        button {
+            display: block;
+            width: 100px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registration form</h1>
+    <div class="form-container">
+        <form id="registrationForm" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="firstName" required />
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="lastName" required />
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" required />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" required />
+            </div>
+            <div class="form-group">
+                <label>Re-enter Password</label>
+                <input type="password" id="rePassword" required />
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <div class="gender-options">
+                    <div class="gender-option">
+                        <input type="radio" id="male" name="gender" value="Male" required />
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="gender-option">
+                        <input type="radio" id="female" name="gender" value="Female" />
+                        <label for="female">Female</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Age:</label>
+                <input type="number" id="age" required min="1" />
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="phone" required />
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <textarea id="address" required></textarea>
+            </div>
+            <div class="form-group">
+                <label>State</label>
+                <input type="text" id="state" required />
+            </div>
+            <div class="form-group">
+                <label>Country</label>
+                <select id="country" required>
+                    <option value="">Choose your country</option>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Australia">Australia</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Languages known</label>
+                <div class="languages">
+                    <div class="language-option">
+                        <input type="checkbox" id="english" name="languages" value="English" />
+                        <label for="english">English</label>
+                    </div>
+                    <div class="language-option">
+                        <input type="checkbox" id="kannada" name="languages" value="Kannada" />
+                        <label for="kannada">Kannada</label>
+                    </div>
+                    <div class="language-option">
+                        <input type="checkbox" id="hindi" name="languages" value="Hindi" />
+                        <label for="hindi">Hindi</label>
+                    </div>
+                    <div class="language-option">
+                        <input type="checkbox" id="telugu" name="languages" value="Telugu" />
+                        <label for="telugu">Telugu</label>
+                    </div>
+                </div>
+            </div>
+            <div class="declaration">
+                <input type="checkbox" id="declare" required />
+                <label for="declare">Hereby I declare all the given details are true</label>
+            </div>
+            <div class="ethnus-link">
+                Log in to <a href="https://ethnus.com" target="_blank">Ethnus</a> website
+            </div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            const password = document.getElementById('password').value;
+            const rePassword = document.getElementById('rePassword').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const age = document.getElementById('age').value;
+
+            if (password !== rePassword) {
+                alert('Passwords do not match!');
+                return false;
+            }
+
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long!');
+                return false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address!');
+                return false;
+            }
+
+            const phonePattern = /^\d{10}$/;
+            if (!phonePattern.test(phone)) {
+                alert('Please enter a valid 10-digit phone number!');
+                return false;
+            }
+
+            if (isNaN(age) || age < 1) {
+                alert('Please enter a valid age!');
+                return false;
+            }
+
+            const languages = document.querySelectorAll('input[name="languages"]:checked');
+            if (languages.length === 0) {
+                alert('Please select at least one language!');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

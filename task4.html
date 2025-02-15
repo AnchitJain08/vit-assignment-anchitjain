@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 4 - Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 120px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 250px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        input[type="password"] {
+            font-family: monospace;
+        }
+        select {
+            width: 262px;
+        }
+        button {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 8px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <form id="registrationForm" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label>Full Name:</label>
+            <input type="text" id="fullName" required />
+        </div>
+        <div class="form-group">
+            <label>Username:</label>
+            <input type="text" id="username" required />
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" id="password" required />
+        </div>
+        <div class="form-group">
+            <label>Re Password:</label>
+            <input type="password" id="rePassword" required />
+        </div>
+        <div class="form-group">
+            <label>Address:</label>
+            <input type="text" id="address" required />
+        </div>
+        <div class="form-group">
+            <label>Age:</label>
+            <input type="text" id="age" required />
+        </div>
+        <div class="form-group">
+            <label>Gender:</label>
+            <select id="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <button type="submit">Save</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            const password = document.getElementById('password').value;
+            const rePassword = document.getElementById('rePassword').value;
+            const age = document.getElementById('age').value;
+
+            if (password !== rePassword) {
+                alert('Passwords do not match!');
+                return false;
+            }
+
+            if (isNaN(age) || age < 1) {
+                alert('Please enter a valid age!');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

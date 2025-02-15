@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 10 - Styled Page</title>
+    <style>
+        body {
+            background-color: #d5e88f;
+            font-family: serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-menu {
+            width: 200px;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 10px;
+            background-color: white;
+            text-decoration: none;
+            color: blue;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        h1 {
+            color: purple;
+            margin-top: 0;
+            font-size: 36px;
+        }
+
+        .welcome-text {
+            color: #444;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-menu">
+            <a href="#">Home page</a>
+            <a href="#">Musings</a>
+            <a href="#">My town</a>
+            <a href="#">Links</a>
+        </nav>
+        <main class="content">
+            <h1>My first styled page</h1>
+            <p class="welcome-text">Welcome to my styled page!</p>
+            <p>It lacks images, but at least it has style. And it has links, even if they don't go anywhere...</p>
+            <p>There should be more here, but I don't know what yet.</p>
+            <p class="footer">Made 5 April 2004<br>by myself.</p>
+        </main>
+    </div>
+</body>
+</html>
