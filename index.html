@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MERN Internship Assignments</title>
-     <style>
+    <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -86,55 +86,138 @@
                 padding: 0.75rem;
             }
         }
+        .assignment-selector {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+
+        .assignment-btn {
+            padding: 1.5rem 3rem;
+            font-size: 1.2rem;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 250px;
+        }
+
+        @media (max-width: 600px) {
+            .assignment-selector {
+                gap: 1rem;
+            }
+            
+            .assignment-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+                width: 100%;
+            }
+        }
+
+        .assignment-btn:hover {
+            background-color: #357abd;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .assignment-content {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .assignment-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>MERN INTERNSHIP ASSIGNMENTS</h1>
-        <p><b>Name:</b> Anchit Jain <b> Reg:</b>22BCE11376 <b> VIT EMAIL ID:</b> anchitjain2022@vitbhopal.ac.in</p>
+        <p><b>Name:</b> Anchit Jain <b>Reg:</b>22BCE11376 <b>VIT EMAIL ID:</b> anchitjain2022@vitbhopal.ac.in</p>
         
-        <h2 style="color: #2c3e50; margin-top: 2rem;">HTML Tasks</h2>
-        <table>
-            <tr>
-                <th>Task Name</th>
-                <th>Task Link</th>
-            </tr>
-            <tr><td>Task 1</td><td><a href="task1.html">View Task</a></td></tr>
-            <tr><td>Task 2</td><td><a href="task2.html">View Task</a></td></tr>
-            <tr><td>Task 3</td><td><a href="task3.html">View Task</a></td></tr>
-            <tr><td>Task 4</td><td><a href="task4.html">View Task</a></td></tr>
-            <tr><td>Task 5</td><td><a href="task5.html">View Task</a></td></tr>
-        </table>
+        <div class="assignment-selector">
+            <button class="assignment-btn" onclick="showAssignment('assignment1')">Assignment 1</button>
+            <button class="assignment-btn" onclick="showAssignment('assignment2')">Assignment 2</button>
+        </div>
 
-        <h2 style="color: #2c3e50; margin-top: 2rem;">CSS Tasks</h2>
-        <table>
-            <tr>
-                <th>Task Name</th>
-                <th>Task Link</th>
-            </tr>
-            <tr><td>Task 6</td><td><a href="task6.html">View Task</a></td></tr>
-            <tr><td>Task 7</td><td><a href="task7.html">View Task</a></td></tr>
-            <tr><td>Task 8</td><td><a href="task8.html">View Task</a></td></tr>
-            <tr><td>Task 9</td><td><a href="task9.html">View Task</a></td></tr>
-        
-            <tr><td>Task 10</td><td><a href="task10.html">View Task</a></td></tr>
-            <tr><td>Task 11</td><td><a href="task11.html">View Task</a></td></tr>
-            <tr><td>Task 12</td><td><a href="task12.html">View Task</a></td></tr>
-        </table>
+        <div id="assignment1" class="assignment-content">
+            <h2 style="color: #2c3e50; margin-top: 2rem;">HTML Tasks</h2>
+            <table>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Task Link</th>
+                </tr>
+                <tr><td>Task 1</td><td><a href="task1.html">View Task</a></td></tr>
+                <tr><td>Task 2</td><td><a href="task2.html">View Task</a></td></tr>
+                <tr><td>Task 3</td><td><a href="task3.html">View Task</a></td></tr>
+                <tr><td>Task 4</td><td><a href="task4.html">View Task</a></td></tr>
+                <tr><td>Task 5</td><td><a href="task5.html">View Task</a></td></tr>
+            </table>
 
-        <h2 style="color: #2c3e50; margin-top: 2rem;">Bootstrap Tasks</h2>
-        <table>
-            <tr>
-                <th>Task Name</th>
-                <th>Task Link</th>
-            </tr>
-            <tr><td>Task 13</td><td><a href="task13.html">View Task</a></td></tr>
-            <tr><td>Task 14</td><td><a href="task14.html">View Task</a></td></tr>
-            <tr><td>Task 15</td><td><a href="task15.html">View Task</a></td></tr>
-            <tr><td>Task 16</td><td><a href="task16.html">View Task</a></td></tr>
-            <tr><td>Task 17</td><td><a href="task17.html">View Task</a></td></tr>
-            <tr><td>Task 18</td><td><a href="task18.html">View Task</a></td></tr>
-        </table>
+            <h2 style="color: #2c3e50; margin-top: 2rem;">CSS Tasks</h2>
+            <table>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Task Link</th>
+                </tr>
+                <tr><td>Task 6</td><td><a href="task6.html">View Task</a></td></tr>
+                <tr><td>Task 7</td><td><a href="task7.html">View Task</a></td></tr>
+                <tr><td>Task 8</td><td><a href="task8.html">View Task</a></td></tr>
+                <tr><td>Task 9</td><td><a href="task9.html">View Task</a></td></tr>
+                <tr><td>Task 10</td><td><a href="task10.html">View Task</a></td></tr>
+                <tr><td>Task 11</td><td><a href="task11.html">View Task</a></td></tr>
+                <tr><td>Task 12</td><td><a href="task12.html">View Task</a></td></tr>
+            </table>
+
+            <h2 style="color: #2c3e50; margin-top: 2rem;">Bootstrap Tasks</h2>
+            <table>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Task Link</th>
+                </tr>
+                <tr><td>Task 13</td><td><a href="task13.html">View Task</a></td></tr>
+                <tr><td>Task 14</td><td><a href="task14.html">View Task</a></td></tr>
+                <tr><td>Task 15</td><td><a href="task15.html">View Task</a></td></tr>
+                <tr><td>Task 16</td><td><a href="task16.html">View Task</a></td></tr>
+                <tr><td>Task 17</td><td><a href="task17.html">View Task</a></td></tr>
+                <tr><td>Task 18</td><td><a href="task18.html">View Task</a></td></tr>
+            </table>
+        </div>
+
+        <div id="assignment2" class="assignment-content">
+            <h2 style="color: #2c3e50; margin-top: 2rem;">JavaScript Tasks</h2>
+            <table>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Task Link</th>
+                </tr>
+                <tr><td>Task 19</td><td><a href="task19.html">View Task</a></td></tr>
+                <tr><td>Task 20</td><td><a href="task20.html">View Task</a></td></tr>
+                <tr><td>Task 21</td><td><a href="task21.html">View Task</a></td></tr>
+                <tr><td>Task 22</td><td><a href="task22.html">View Task</a></td></tr>
+                <tr><td>Task 23</td><td><a href="task23.html">View Task</a></td></tr>
+                <tr><td>Task 24</td><td><a href="task24.html">View Task</a></td></tr>
+                <tr><td>Task 25</td><td><a href="task25.html">View Task</a></td></tr>
+                <tr><td>Task 26</td><td><a href="task26.html">View Task</a></td></tr>
+                <tr><td>Task 27</td><td><a href="task27/task27_index.html">View Task</a></td></tr>
+            </table>
+        </div>
     </div>
+
+    <script>
+        function showAssignment(assignmentId) {
+            document.querySelectorAll('.assignment-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(assignmentId).classList.add('active');
+        }
+    </script>
 </body>
 </html>

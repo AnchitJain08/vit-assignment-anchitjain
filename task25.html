@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartoon Train Animation</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            perspective: 1000px;
+        }
+        
+        .landscape {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 30%;
+            background-color: #4CAF50;
+            background-image: linear-gradient(to bottom, #4CAF50, #2E7D32);
+            z-index: -2;
+        }
+        
+        .grass {
+            position: absolute;
+            bottom: 30%;
+            width: 100%;
+            height: 15px;
+            z-index: -1;
+        }
+        
+        .sun {
+            position: absolute;
+            top: 80px;
+            right: 150px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #FFD700 30%, #FF9800 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 70px #FFD700;
+            animation: sunPulse 5s infinite alternate;
+            filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.7));
+        }
+        
+        @keyframes sunPulse {
+            0% {
+                box-shadow: 0 0 60px #FFD700;
+            }
+            100% {
+                box-shadow: 0 0 100px #FFD700;
+            }
+        }
+        
+        .cloud {
+            position: absolute;
+            background-color: white;
+            opacity: 0.9;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-radius: 50px;
+            animation: floatCloud 30s linear infinite;
+        }
+        
+        .cloud:nth-child(1) {
+            width: 150px;
+            height: 60px;
+            top: 100px;
+            left: -150px;
+            animation-duration: 35s;
+        }
+        
+        .cloud:nth-child(2) {
+            width: 200px;
+            height: 70px;
+            top: 150px;
+            left: -200px;
+            animation-duration: 45s;
+            animation-delay: 10s;
+        }
+        
+        .cloud:nth-child(3) {
+            width: 120px;
+            height: 50px;
+            top: 80px;
+            left: -120px;
+            animation-duration: 40s;
+            animation-delay: 5s;
+        }
+        
+        @keyframes floatCloud {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(100vw + 300px));
+            }
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            z-index: -4;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        /* Keep your existing train code unchanged */
+        canvas {
+            border: 1px solid #333;
+            background: linear-gradient(to bottom, 
+                #4A90E2 0%, #4A90E2 80%, 
+                #8B5D3B 80%, #8B5D3B 82%, 
+                #5BBE45 82%, #5BBE45 100%);
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #FF9900;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #FF7700;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="trainCanvas" width="800" height="500"></canvas>
+    <div class="controls">
+        <button id="startBtn">Start Train</button>
+        <button id="stopBtn">Stop Train</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('trainCanvas');
+        const ctx = canvas.getContext('2d');
+        const width = canvas.width;
+        const height = canvas.height;
+        
+        class Cloud {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.width = 80 + Math.random() * 50;
+                this.speed = 0.2 + Math.random() * 0.3;
+            }
+            
+            update() {
+                this.x -= this.speed;
+                if (this.x + this.width < 0) {
+                    this.x = width + 50;
+                    this.y = 50 + Math.random() * 100;
+                }
+            }
+            
+            draw(ctx) {
+                ctx.fillStyle = 'white';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.width/2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        const clouds = [
+            new Cloud(width * 0.2, 70),
+            new Cloud(width * 0.6, 100)
+        ];
+        
+        const sun = {
+            x: width * 0.7,
+            y: height * 0.25,
+            radius: 40,
+            glowRadius: 60,
+            draw(ctx) {
+                const gradient = ctx.createRadialGradient(
+                    this.x, this.y, this.radius * 0.8,
+                    this.x, this.y, this.glowRadius
+                );
+                gradient.addColorStop(0, '#FFD700');
+                gradient.addColorStop(1, 'rgba(255, 215, 0, 0)');
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.glowRadius, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.fillStyle = '#FFD700';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        };
+        
+        const train = {
+            x: -200,
+            y: height * 0.8 - 35,
+            speed: 0,
+            maxSpeed: 2,
+            acceleration: 0.05,
+            deceleration: 0.03,
+            smokeInterval: 20,
+            frameCount: 0,
+            moving: false,
+            headlightOn: true,
+            
+            locomotive: {
+                width: 100,
+                height: 60,
+                color: '#C93A27'
+            },
+            
+            cars: [
+                {
+                    width: 80,
+                    height: 50,
+                    color: '#375899',
+                    windows: 2
+                },
+                {
+                    width: 80,
+                    height: 50,
+                    color: '#375899',
+                    windows: 3
+                }
+            ]
+        };
+        
+        class SmokeParticle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = 8 + Math.random() * 5;
+                this.vx = -0.1 - Math.random() * 0.2;
+                this.vy = -0.7 - Math.random() * 0.3;
+                this.opacity = 0.8;
+                this.lifetime = 200 + Math.random() * 100;
+                this.age = 0;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy *= 0.99;
+                this.size += 0.2;
+                this.opacity -= 0.8 / this.lifetime;
+                this.age++;
+            }
+            
+            draw(ctx) {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = '#777777';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+            
+            isDead() {
+                return this.opacity <= 0 || this.age >= this.lifetime;
+            }
+        }
+        
+        const smokeParticles = [];        
+        function createSmoke() {
+            if (train.moving && train.speed > 0.5) {
+                if (train.frameCount % train.smokeInterval === 0) {
+                    smokeParticles.push(
+                        new SmokeParticle(
+                            train.x + 80,
+                            train.y - 35
+                        )
+                    );
+                }
+                train.frameCount++;
+            }
+        }
+        
+        function updateSmoke() {
+            for (let i = smokeParticles.length - 1; i >= 0; i--) {
+                smokeParticles[i].update();
+                if (smokeParticles[i].isDead()) {
+                    smokeParticles.splice(i, 1);
+                }
+            }
+        }
+        
+        function drawSmoke() {
+            for (const particle of smokeParticles) {
+                particle.draw(ctx);
+            }
+        }
+        
+        function drawLocomotive(x, y) {
+            const loco = train.locomotive;
+            ctx.fillStyle = loco.color;
+            ctx.fillRect(x, y, loco.width, loco.height);
+            ctx.fillStyle = loco.color;
+            ctx.beginPath();
+            ctx.arc(x + loco.width, y + loco.height/2, loco.height/2, Math.PI * 1.5, Math.PI * 0.5, true);
+            ctx.fill();
+            ctx.fillStyle = '#8B4513';
+            ctx.fillRect(x + 10, y - 20, 40, 20);
+            ctx.fillStyle = '#333333';
+            ctx.fillRect(x + 75, y - 35, 10, 35);
+            ctx.fillStyle = '#555555';
+            ctx.fillRect(x + 72, y - 40, 16, 5);
+            ctx.fillStyle = '#FFEB3B';
+            ctx.fillRect(x + 15, y - 15, 10, 10);
+            ctx.fillRect(x + 35, y - 15, 10, 10);
+            ctx.fillStyle = '#FFEB3B';
+            ctx.fillRect(x + loco.width - 20, y + 10, 15, 15);
+            drawWheel(x + 20, y + loco.height);
+            drawWheel(x + 50, y + loco.height);
+            drawWheel(x + 80, y + loco.height);
+            if (train.headlightOn) {
+                ctx.fillStyle = '#FFEB3B';
+                ctx.beginPath();
+                ctx.arc(x + loco.width, y + loco.height/2, 5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        function drawCar(x, y, car) {
+            ctx.fillStyle = car.color;
+            ctx.fillRect(x, y, car.width, car.height);
+            ctx.fillStyle = car.color;
+            ctx.beginPath();
+            ctx.arc(x, y + car.height/2, car.height/2, Math.PI * 1.5, Math.PI * 0.5);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(x + car.width, y + car.height/2, car.height/2, Math.PI * 0.5, Math.PI * 1.5);
+            ctx.fill();
+            const windowWidth = 15;
+            const windowHeight = 20;
+            const windowSpacing = car.width / (car.windows + 1);
+            
+            ctx.fillStyle = '#CCDDFF';
+            for (let i = 1; i <= car.windows; i++) {
+                ctx.fillRect(
+                    x + (i * windowSpacing) - (windowWidth/2), 
+                    y + 10, 
+                    windowWidth, 
+                    windowHeight
+                );
+            }
+            const wheelSpacing = car.width / 3;
+            drawWheel(x + wheelSpacing, y + car.height);
+            drawWheel(x + 2 * wheelSpacing, y + car.height);
+        }
+        
+        function drawWheel(x, y) {
+            ctx.fillStyle = '#222222';
+            ctx.beginPath();
+            ctx.arc(x, y, 12, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        function drawTrain() {
+            const positions = [];
+            positions.push({
+                x: train.x,
+                y: train.y,
+                type: 'locomotive'
+            });
+            
+            let nextX = train.x - 15 - train.cars[0].width;
+            
+            for (let i = 0; i < train.cars.length; i++) {
+                positions.push({
+                    x: nextX,
+                    y: train.y + 5,
+                    type: 'car',
+                    carIndex: i
+                });
+                
+                nextX -= (15 + train.cars[i].width);
+            }
+            
+            for (let i = positions.length - 1; i >= 0; i--) {
+                const pos = positions[i];
+                
+                if (pos.type === 'locomotive') {
+                    drawLocomotive(pos.x, pos.y);
+                } else {
+                    drawCar(pos.x, pos.y, train.cars[pos.carIndex]);
+                }
+            }
+        }
+        
+        function drawTracks() {
+            const trackY = train.y + train.locomotive.height + 10;
+            
+            ctx.fillStyle = '#8B4513';
+            ctx.fillRect(0, trackY, width, 5);
+            
+            ctx.fillStyle = '#6D4C41';
+            for (let x = 0; x < width; x += 30) {
+                ctx.fillRect(x, trackY - 3, 20, 10);
+            }
+        }
+        
+        function updateTrain() {
+            if (train.moving) {
+                if (train.speed < train.maxSpeed) {
+                    train.speed += train.acceleration;
+                }
+                if (train.speed > train.maxSpeed) {
+                    train.speed = train.maxSpeed;
+                }
+            } else {
+                if (train.speed > 0) {
+                    train.speed -= train.deceleration;
+                }
+                if (train.speed < 0) {
+                    train.speed = 0;
+                }
+            }
+            
+            train.x += train.speed;            
+            if (train.x > width + 200) {
+                train.x = -300;
+            }
+        }
+        
+        function updateClouds() {
+            for (const cloud of clouds) {
+                cloud.update();
+            }
+        }
+        
+        function drawClouds() {
+            for (const cloud of clouds) {
+                cloud.draw(ctx);
+            }
+        }
+        
+        function drawGround() {
+            ctx.fillStyle = '#5BBE45';
+            ctx.fillRect(0, height * 0.82, width, height * 0.18);
+            
+            ctx.strokeStyle = '#4CAF50';
+            ctx.lineWidth = 1;
+            
+            for (let x = 0; x < width; x += 20) {
+                const grassHeight = 3 + Math.random() * 5;
+                ctx.beginPath();
+                ctx.moveTo(x, height * 0.82);
+                ctx.lineTo(x, height * 0.82 - grassHeight);
+                ctx.stroke();
+            }
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            updateTrain();
+            updateClouds();
+            createSmoke();
+            updateSmoke();
+            drawClouds();
+            sun.draw(ctx);
+            drawGround();
+            drawTracks();
+            drawTrain();
+            drawSmoke();
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        document.getElementById('startBtn').addEventListener('click', () => {
+            train.moving = true;
+        });
+        
+        document.getElementById('stopBtn').addEventListener('click', () => {
+            train.moving = false;
+        });
+    </script>
+</body>
+</html>

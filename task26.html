@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 26 - Registration Form with Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .gender-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 5px;
+        }
+
+        .gender-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .languages-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        .language-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .declaration {
+            margin: 20px 0;
+        }
+
+        .ethnus-link {
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .ethnus-link a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .ethnus-link a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .error {
+            border-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registration form</h1>
+        <form id="registrationForm" novalidate>
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="firstName" required />
+                <div class="error-message">First name is required</div>
+            </div>
+
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="lastName" required />
+                <div class="error-message">Last name is required</div>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" required />
+                <div class="error-message">Please enter a valid email address</div>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" required />
+                <div class="error-message">Password must be at least 6 characters long</div>
+            </div>
+
+            <div class="form-group">
+                <label>Re-enter Password</label>
+                <input type="password" id="rePassword" required />
+                <div class="error-message">Passwords do not match</div>
+            </div>
+
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="gender-group">
+                    <div class="gender-option">
+                        <input type="radio" id="male" name="gender" value="Male" required />
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="gender-option">
+                        <input type="radio" id="female" name="gender" value="Female" />
+                        <label for="female">Female</label>
+                    </div>
+                </div>
+                <div class="error-message">Please select your gender</div>
+            </div>
+
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" id="age" required min="1" />
+                <div class="error-message">Please enter a valid age</div>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="phone" required />
+                <div class="error-message">Please enter a valid phone number</div>
+            </div>
+
+            <div class="form-group">
+                <label>Address</label>
+                <textarea id="address" required></textarea>
+                <div class="error-message">Address is required</div>
+            </div>
+
+            <div class="form-group">
+                <label>State</label>
+                <input type="text" id="state" required />
+                <div class="error-message">State is required</div>
+            </div>
+
+            <div class="form-group">
+                <label>Country</label>
+                <select id="country" required>
+                    <option value="">Choose your country</option>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Australia">Australia</option>
+                </select>
+                <div class="error-message">Please select your country</div>
+            </div>
+
+            <div class="form-group">
+                <label>Languages known</label>
+                <div class="languages-group">
+                    <div class="language-option">
+                        <input type="checkbox" id="english" name="languages" value="English" />
+                        <label for="english">English</label>
+                    </div>
+                    <div class="language-option">
+                        <input type="checkbox" id="kannada" name="languages" value="Kannada" />
+                        <label for="kannada">Kannada</label>
+                    </div>
+                    <div class="language-option">
+                        <input type="checkbox" id="hindi" name="languages" value="Hindi" />
+                        <label for="hindi">Hindi</label>
+                    </div>
+                    <div class="language-option">
+                        <input type="checkbox" id="telugu" name="languages" value="Telugu" />
+                        <label for="telugu">Telugu</label>
+                    </div>
+                </div>
+                <div class="error-message">Please select at least one language</div>
+            </div>
+
+            <div class="declaration">
+                <input type="checkbox" id="declare" required />
+                <label for="declare">Hereby I declare all the given details are true</label>
+                <div class="error-message">Please accept the declaration</div>
+            </div>
+
+            <div class="ethnus-link">
+                Log in to <a href="https://ethnus.com" target="_blank">Ethnus</a> website
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateForm()) {
+                alert('Registration successful!');
+                this.reset();
+                clearErrors();
+            }
+        });
+
+        function validateForm() {
+            let isValid = true;
+            clearErrors();
+
+            // Validate First Name
+            const firstName = document.getElementById('firstName');
+            if (!firstName.value.trim()) {
+                showError(firstName, 'First name is required');
+                isValid = false;
+            }
+
+            // Validate Last Name
+            const lastName = document.getElementById('lastName');
+            if (!lastName.value.trim()) {
+                showError(lastName, 'Last name is required');
+                isValid = false;
+            }
+
+            // Validate Email
+            const email = document.getElementById('email');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.value.trim() || !emailPattern.test(email.value)) {
+                showError(email, 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            // Validate Password
+            const password = document.getElementById('password');
+            const rePassword = document.getElementById('rePassword');
+            if (password.value.length < 6) {
+                showError(password, 'Password must be at least 6 characters long');
+                isValid = false;
+            }
+            if (password.value !== rePassword.value) {
+                showError(rePassword, 'Passwords do not match');
+                isValid = false;
+            }
+
+            // Validate Gender
+            const gender = document.querySelector('input[name="gender"]:checked');
+            if (!gender) {
+                showError(document.querySelector('.gender-group'), 'Please select your gender');
+                isValid = false;
+            }
+
+            // Validate Age
+            const age = document.getElementById('age');
+            if (!age.value || age.value < 1) {
+                showError(age, 'Please enter a valid age');
+                isValid = false;
+            }
+
+            // Validate Phone
+            const phone = document.getElementById('phone');
+            const phonePattern = /^\d{10}$/;
+            if (!phone.value.trim() || !phonePattern.test(phone.value)) {
+                showError(phone, 'Please enter a valid 10-digit phone number');
+                isValid = false;
+            }
+
+            // Validate Address
+            const address = document.getElementById('address');
+            if (!address.value.trim()) {
+                showError(address, 'Address is required');
+                isValid = false;
+            }
+
+            // Validate State
+            const state = document.getElementById('state');
+            if (!state.value.trim()) {
+                showError(state, 'State is required');
+                isValid = false;
+            }
+
+            // Validate Country
+            const country = document.getElementById('country');
+            if (!country.value) {
+                showError(country, 'Please select your country');
+                isValid = false;
+            }
+
+            // Validate Languages
+            const languages = document.querySelectorAll('input[name="languages"]:checked');
+            if (languages.length === 0) {
+                showError(document.querySelector('.languages-group'), 'Please select at least one language');
+                isValid = false;
+            }
+
+            // Validate Declaration
+            const declare = document.getElementById('declare');
+            if (!declare.checked) {
+                showError(declare, 'Please accept the declaration');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function showError(element, message) {
+            element.classList.add('error');
+            const errorDiv = element.parentElement.querySelector('.error-message');
+            if (errorDiv) {
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(element => {
+                element.classList.remove('error');
+            });
+            document.querySelectorAll('.error-message').forEach(element => {
+                element.style.display = 'none';
+            });
+        }
+
+        // Real-time validation
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                this.classList.remove('error');
+                const errorDiv = this.parentElement.querySelector('.error-message');
+                if (errorDiv) {
+                    errorDiv.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

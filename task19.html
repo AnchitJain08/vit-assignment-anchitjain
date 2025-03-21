@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 19 - Number Reversal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Number Reversal</h1>
+        <div class="input-group">
+            <input type="number" id="numberInput" placeholder="Enter a number">
+            <button onclick="reverseAndDisplay()">Reverse</button>
+        </div>
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        function reverseNumber(num) {
+            const reversed = parseInt(Math.abs(num).toString().split('').reverse().join(''));
+            return num < 0 ? -reversed : reversed;
+        }
+
+        function reverseAndDisplay() {
+            const input = document.getElementById('numberInput').value;
+            const number = parseInt(input);
+            
+            if (isNaN(number)) {
+                document.getElementById('output').innerHTML = 'Please enter a valid number';
+                return;
+            }
+            
+            const reversed = reverseNumber(number);
+            document.getElementById('output').innerHTML = `
+                Original number: ${number}<br>
+                Reversed number: ${reversed}
+            `;
+        }
+    </script>
+</body>
+</html>
